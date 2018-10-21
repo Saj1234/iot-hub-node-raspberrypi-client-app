@@ -1,5 +1,5 @@
 {
-  "simulatedData": false,
+  "sensorType": "DhtSensor",
   "interval": 2000,
   "deviceId": "Raspberry Pi Node",
   "LEDPin": 5,

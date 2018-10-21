@@ -38,10 +38,18 @@ You can follow the image to connect your BME280 and a LED with your Raspberry Pi
 
 ![BME280](https://docs.microsoft.com/en-us/azure/iot-hub/media/iot-hub-raspberry-pi-kit-node-get-started/3_raspberry-pi-sensor-connection.png)
 
-### DON'T HAVE A PHYSICAL BME280?
+### Pick a sensor type
+Default sensor type is set to DHT sensor. If you are using BME280 you can change it in the config.
+1. Open the `config.json` file.
+2. Change the `sensorType` value to "Bme280"
+
+### DON'T HAVE A PHYSICAL DHT BME280 sensor?
 You can use the application to simulate temperature&humidity data and send to your IoT hub.
 1. Open the `config.json` file.
-2. Change the `simulatedData` value from `false` to `true`.
+2. Change the `sensorType` value to "SimulatedSensor"
+
+
+
 
 
 ## Running this sample
