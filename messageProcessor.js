@@ -12,9 +12,10 @@ function MessageProcessor(option) {
     deviceId: '[Unknown device] node',
     temperatureAlert: 30
   }, option);
-  if(option.DhtSensor) {
+  const sensorType = option.sensorType;
+  if(sensorType === 'DhtSensor') {
     this.sensor = new DhtSensor()
-  } else if(option.Bme280) {
+  } else if(sensorType === 'Bme280') {
     this.sensor = new Bme280Sensor(option.i2cOption);
   }
   else {

@@ -4,8 +4,7 @@
   "description": "Client application for Raspberry Pi collect temperature and humidity data from BME280, then interactive with Azure IoT hub",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/eslint *.js",
-    "start": "node index.js 'HostName=Raspberry-IOT.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=kxgTIXbm3Efu+P0HeJm1IlyZsvFKfqr40YcFSxWU8zM='"
+    "test": "node_modules/.bin/eslint *.js"
   },
   "dependencies": {
     "az-iot-bi": "^0.1.18",
