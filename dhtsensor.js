@@ -14,11 +14,11 @@ class DHTSensor {
     this.sensor = dht.read(defaultOptions.dht, defaultOptions.bcmGpio);
   }
 
-  read() {
-    return {
+  read(callback) {
+    callback(null, {
       humidity: this.sensor.humidity,
       temperature: this.sensor.temperature
-    }
+    }); 
   }
 }
 

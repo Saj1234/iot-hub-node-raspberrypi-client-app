@@ -1,5 +1,5 @@
 {
-  "sensorType": "DhtSensor",
+  "sensorType": "Obd2",
   "interval": 2000,
   "deviceId": "Raspberry Pi Node",
   "LEDPin": 5,

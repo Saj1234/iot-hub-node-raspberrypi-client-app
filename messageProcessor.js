@@ -6,8 +6,9 @@
 const Bme280Sensor = require('./bme280Sensor.js');
 const DhtSensor = require('./dhtsensor.js');
 const SimulatedSensor = require('./simulatedSensor.js');
+const Obd2Sensor = require('./obd2-sensor.js');
 
-function MessageProcessor(option) {
+function MessageProcessor(option, cb) {
   option = Object.assign({
     deviceId: '[Unknown device] node',
     temperatureAlert: 30
@@ -17,6 +18,11 @@ function MessageProcessor(option) {
     this.sensor = new DhtSensor()
   } else if(sensorType === 'Bme280') {
     this.sensor = new Bme280Sensor(option.i2cOption);
+  }
+ else if(sensorType === 'Obd2') {
+  this.sensor = new Obd2Sensor((content) => {
+    cb(content);
+  });
   }
   else {
     this.sensor = new SimulatedSensor()
@@ -39,9 +45,14 @@ MessageProcessor.prototype.getMessage = function (messageId, cb) {
     cb(JSON.stringify({
       messageId: messageId,
       deviceId: this.deviceId,
-      temperature: data.temperature,
-      humidity: data.humidity
-    }), data.temperature > this.temperatureAlert);
+      data: data}), false);
+
+    // cb(JSON.stringify({
+    //   messageId: messageId,
+    //   deviceId: this.deviceId,
+    //   temperature: data.temperature,
+    //   humidity: data.humidity
+    // }), data.temperature > this.temperatureAlert);
   });
 }
 

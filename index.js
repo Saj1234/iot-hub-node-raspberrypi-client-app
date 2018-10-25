@@ -33,7 +33,7 @@ function sendMessage() {
       if (err) {
         console.error('Failed to send message to Azure IoT Hub');
       } else {
-        blinkLED();
+        //blinkLED();
         console.log('Message sent to Azure IoT Hub');
       }
       setTimeout(sendMessage, config.interval);
@@ -115,7 +115,10 @@ function initClient(connectionStringParam, credentialPath) {
   // set up wiring
   //wpi.setup('wpi');
   //wpi.pinMode(config.LEDPin, wpi.OUTPUT);
-  messageProcessor = new MessageProcessor(config);
+  messageProcessor = new MessageProcessor(config, (content => {
+    console.log("Init messages");
+    console.log(content);
+  }));
 
   try {
     var firstTimeSetting = false;
