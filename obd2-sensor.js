@@ -1,43 +1,33 @@
 
 'use strict';
-var OBDReader = require('./OBDReader.js');
-
-
 class Obd2Sensor {
   constructor(callback) {
-
-    this.obdReader = new OBDReader(false),
-    this.monitors = [
-        'vss',
-        'rpm',
-        'temp',
-        'iat',
-        'maf',
-        'map',
-        'frp',
-        'load_pct',
-        'throttlepos'
-    ]
-
-    this.obdReader.on('connected', function() {
-        console.log('Connected to OBD on '+ obdReader.getPort());
-        var self = this;
-    
-        this.monitors.forEach(function(mon){
-            self.addMonitor(mon);
-        });
-        this.startMonitors();
-    
-        //io.emit('connected');
+    console.log('in constructor');
+    var OBDReader = require('bluetooth-obd');
+    var btOBDReader = new OBDReader();
+    var dataReceivedMarker = {};
+     
+    btOBDReader.on('connected', function () {
+        //this.requestValueByName("vss"); //vss = vehicle speed sensor
+     
+        this.addPoller("vss");
+        this.addPoller("rpm");
+        this.addPoller("temp");
+        this.addPoller("load_pct");
+        this.addPoller("map");
+        this.addPoller("frp");
+     
+        this.startPolling(1000); //Request all values each second.
     });
-    
-    this.obdReader.on('dataReceived', function(reply) {
-        callback(null, reply);
-        //io.emit(reply.name, reply);
+     
+    btOBDReader.on('dataReceived', function (data) {
+        console.log(data);
+        dataReceivedMarker = data;
     });
-
-    this.obdReader.autoConnectBluetooth('obd');
-
+     
+    // Use first device with 'obd' in the name
+    btOBDReader.autoconnect('obd');
+    console.log('end constructor');
    
 }
 
