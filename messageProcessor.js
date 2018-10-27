@@ -29,9 +29,9 @@ function MessageProcessor(option, cb) {
   }
   this.deviceId = option.deviceId;
   this.temperatureAlert = option.temperatureAlert
-  this.sensor.init(() => {
-    this.inited = true;
-  });
+  // this.sensor.init(() => {
+     this.inited = true;
+  // });
 }
 
 MessageProcessor.prototype.getMessage = function (messageId, cb) {
