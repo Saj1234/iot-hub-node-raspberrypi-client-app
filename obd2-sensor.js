@@ -24,9 +24,14 @@ class Obd2Sensor {
         console.log(data);
         dataReceivedMarker = data;
     });
+
+    btOBDReader.on('error', function (errorData) {
+       console.log(errorData);
+    });
      
     // Use first device with 'obd' in the name
-    btOBDReader.autoconnect('obd');
+    //btOBDReader.autoconnect('obd');
+    btOBDReader.autoconnect('OBDII');
     console.log('end constructor');
    
 }

@@ -3,10 +3,9 @@
 */
 'use strict';
 
-const Bme280Sensor = require('./bme280Sensor.js');
-const DhtSensor = require('./dhtsensor.js');
 const SimulatedSensor = require('./simulatedSensor.js');
 const Obd2Sensor = require('./obd2-sensor.js');
+const Obd2SensorParser = require('./obd2-sensor-parser.js');
 
 function MessageProcessor(option, cb) {
   option = Object.assign({
@@ -14,17 +13,20 @@ function MessageProcessor(option, cb) {
     temperatureAlert: 30
   }, option);
   const sensorType = option.sensorType;
-  if(sensorType === 'DhtSensor') {
-    this.sensor = new DhtSensor()
-  } else if(sensorType === 'Bme280') {
-    this.sensor = new Bme280Sensor(option.i2cOption);
-  }
- else if(sensorType === 'Obd2') {
-  this.sensor = new Obd2Sensor((content) => {
-    cb(content);
-  });
+  console.log(sensorType);
+  if(sensorType === 'Obd2') {
+    console.log('in Obd2');
+    this.sensor = new Obd2Sensor((content) => {
+      cb(content);
+    });
+  }  else if(sensorType === 'Obd2Parser') {
+    console.log('in Obd2Parser');
+    this.sensor = new Obd2SensorParser((content) => {
+      cb(content);
+    });
   }
   else {
+    console.log('in simulated sensor');
     this.sensor = new SimulatedSensor()
   }
   this.deviceId = option.deviceId;
