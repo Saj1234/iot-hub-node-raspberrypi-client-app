@@ -1,5 +1,5 @@
 {
-  "sensorType": "Obd2",
+  "sensorType": "Obd2Parser",
   "interval": 2000,
   "deviceId": "Raspberry Pi Node",
   "LEDPin": 5,
